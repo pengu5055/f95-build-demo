@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.7)
+set(CMAKE_fortran_COMPILER "/usr/bin/gfortran")
+set(CMAKE_fotran_COMPILER_ENV_VAR "/usr/bin/gfortran")
+project(demo LANGUAGES "fortran")
+add_executable(main main.f95 func.f95)
