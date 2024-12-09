@@ -1,11 +1,21 @@
-OBJS := func.o main.f95
-PROG := executable
+# Config
+MAKEFLAGS += --no-builtin-rules --no-builtin-variables
+FC := gfortran
+LD := $(FC)
+RM := rm -f
 
+# Sources
+OBJS := func.f95 main.f95
+PROG := demo
+
+# Rules
+.PHONY: all clean
 all: $(PROG)
-	echo "$@ depends on $^"
 
 $(PROG): $(OBJS)
-	gfortran -o $@ $^
+	$(LD) -o $@ $^
 
-$(OBJS): %.o: %.f95
-	gfortran -c -o $@ $<
+$(OBJS): $(MAKEFILE_LIST)
+
+clean:
+	$(RM) $(filter %.o, $(OBJS)) $(wildcard *.mod) $(PROG)
